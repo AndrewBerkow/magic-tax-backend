@@ -138,6 +138,97 @@ app.use((req, res, next) => {
 module.exports = app;
 
 function calculateTax(m_status, income, tax_paid){
-  return -69;
+
+
+
+
+//   m_status = "SINGLE"
+// income = 50000
+// tax_paid = 5000
+
+  var base_tax = 0;
+  var over_amount = 0;
+  var rate = 0;
+  var deduction =0;
+
+  const c = config;
+
+  if (m_status == 'SINGLE'){
+    deduction = c.S_Deduction;
+    if(income <= c.S_Income_1_limit){
+      base_tax = c.S_Income_1_base;
+      over_amount = c.S_Income_1_over;
+      rate = c.S_Income_1_tax;
+    }else if(income <= c.S_Income_2_limit){
+      base_tax = c.S_Income_2_base;
+      over_amount = c.S_Income_2_over;
+      rate = c.S_Income_2_tax;
+    }else if(income <= c.S_Income_3_limit){
+      base_tax = c.S_Income_3_base;
+      over_amount = c.S_Income_3_over;
+      rate = c.S_Income_3_tax;
+    }else if (income <= c.S_Income_4_limit){
+      base_tax = c.S_Income_4_base;
+      over_amount = c.S_Income_4_over;
+      rate = c.S_Income_4_tax;
+    }else if (income <= c.S_Income_5_limit){
+      base_tax = c.S_Income_5_base;
+      over_amount = c.S_Income_5_over;
+      rate = c.S_Income_5_tax;
+    }else if (income <= c.S_Income_6_limit){
+      base_tax = c.S_Income_6_base;
+      over_amount = c.S_Income_6_over;
+      rate = c.S_Income_6_tax;
+    }else{
+      base_tax = c.S_Income_7_base;
+      over_amount = c.S_Income_7_over;
+      rate = c.S_Income_7_tax;
+    }
+  }else{
+    deduction = c.M_Deduction;
+    if(income <= c.M_Income_1_limit){
+      base_tax = c.M_Income_1_base
+      over_amount = c.M_Income_1_over
+      rate = c.M_Income_1_tax
+    }else if(income <= c.M_Income_2_limit){
+      base_tax = c.M_Income_2_base
+      over_amount = c.M_Income_2_over
+      rate = c.M_Income_2_tax
+    }else if(income <= c.M_Income_3_limit){
+      console.log("should be getting here.")
+      base_tax = c.M_Income_3_base
+      over_amount = c.M_Income_3_over
+      rate = c.M_Income_3_tax
+    }else if(income <= c.M_Income_4_limit){
+      base_tax = c.M_Income_4_base
+      over_amount = c.M_Income_4_over
+      rate = c.M_Income_4_tax
+    }else if(income <= c.M_Income_5_limit){
+      base_tax = c.M_Income_5_base
+      over_amount = c.M_Income_5_over
+      rate = c.M_Income_5_tax
+    }else if(income <= c.M_Income_6_limit){
+      base_tax = c.M_Income_6_base
+      over_amount = c.M_Income_6_over
+      rate = c.M_Income_6_tax
+    }else{
+      base_tax = c.M_Income_7_base
+      over_amount = c.M_Income_7_over
+      rate = c.M_Income_7_tax
+    }
+  } 
+
+  // var deduction = 24800;
+  // var base_tax = 9086.0
+  // var over_amount = 78950
+  // var rate = 0.22
+  // var tax_paid = 70000;
+  // var income = 79000;
+
+  const tax_due = base_tax - deduction -tax_paid + ((income - over_amount) * rate)
+
+
+return tax_due;
 }
+
 
