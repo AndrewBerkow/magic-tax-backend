@@ -112,7 +112,7 @@ app.post("/api/records", (req, res, next) => {
     tax_paid: req.body.tax_paid,
     tax_return: tax_return,
     });
-  console.log(record);
+  // console.log(record);
   record.save(); //magic mongoose command to save the blog created above
   res.status(201).json({
     message: record
@@ -121,7 +121,6 @@ app.post("/api/records", (req, res, next) => {
 
 
 app.get("/api/records", (req, res, next) => {
-  console.log("hey are we getting to GET")
   Record.findOne({ 'email': req.query.email}, function (err, foundRecord) {
     res.status(200).json({
       // message: "Record fetched successfully!",
@@ -195,7 +194,6 @@ function calculateTax(m_status, income, tax_paid){
       over_amount = c.M_Income_2_over
       rate = c.M_Income_2_tax
     }else if(income <= c.M_Income_3_limit){
-      console.log("should be getting here.")
       base_tax = c.M_Income_3_base
       over_amount = c.M_Income_3_over
       rate = c.M_Income_3_tax
@@ -224,8 +222,15 @@ function calculateTax(m_status, income, tax_paid){
   // var rate = 0.22
   // var tax_paid = 70000;
   // var income = 79000;
+  console.log("base_tax: ", base_tax);
+  console.log("tax_paid: ", tax_paid);
+  console.log("income: ", income);
+  console.log("deduction: ", deduction);
+  console.log("over_amount: ", over_amount);
+  console.log("rate: ", rate);
 
-  const tax_due = base_tax - deduction -tax_paid + ((income - over_amount) * rate)
+  // const tax_due = base_tax - deduction -tax_paid + ((income - over_amount) * rate)
+  const tax_due = base_tax - tax_paid + ((income - deduction - over_amount) * rate)
 
 
 return tax_due;
