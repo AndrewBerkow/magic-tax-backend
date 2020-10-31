@@ -152,7 +152,9 @@ function calculateTax(m_status, income, tax_paid){
 
   const c = config;
 
-  if (m_status == 'SINGLE'){
+  console.log("m_status", m_status);
+
+  if (m_status == "single"){
     deduction = c.S_Deduction;
     if(income <= c.S_Income_1_limit){
       base_tax = c.S_Income_1_base;
@@ -216,12 +218,7 @@ function calculateTax(m_status, income, tax_paid){
     }
   } 
 
-  // var deduction = 24800;
-  // var base_tax = 9086.0
-  // var over_amount = 78950
-  // var rate = 0.22
-  // var tax_paid = 70000;
-  // var income = 79000;
+
   console.log("base_tax: ", base_tax);
   console.log("tax_paid: ", tax_paid);
   console.log("income: ", income);
@@ -229,11 +226,10 @@ function calculateTax(m_status, income, tax_paid){
   console.log("over_amount: ", over_amount);
   console.log("rate: ", rate);
 
-  // const tax_due = base_tax - deduction -tax_paid + ((income - over_amount) * rate)
   const tax_due = base_tax - tax_paid + ((income - deduction - over_amount) * rate)
 
 
-return tax_due;
+return tax_due*-1;
 }
 
 
